@@ -16,7 +16,7 @@ public class NoteService {
     NoteRepository noteRepository;
 
     @Transactional
-    public Note addNote(Integer userId, CreateNoteRequest request) {
+    public Note addNote(String userId, CreateNoteRequest request) {
         Note note = new Note();
         note.setUserId(userId);
         note.setText(request.getText());
@@ -25,28 +25,25 @@ public class NoteService {
     }
 
     @Transactional
-    public Note updateNote(Integer noteId, UpdateNoteRequest request) {
-        Note note = noteRepository.findById(noteId).orElseThrow();
+    public Note updateNote(Integer noteId, String userId, UpdateNoteRequest request) {
+        Note note = noteRepository.findByNoteIdAndUserId(noteId, userId).orElseThrow();
         note.setText(request.getText());
 
         return noteRepository.save(note);
     }
 
     @Transactional
-    public void deleteNoteById(Integer id) {
-        noteRepository.deleteById(id);
+    public void deleteNoteById(Integer noteId, String userId) {
+        noteRepository.deleteByNoteIdAndUserId(noteId, userId);
     }
 
     @Transactional(readOnly = true)
-    public Note getNoteById(Integer id) {
-        return noteRepository.findById(id).orElseThrow();
+    public Note getNoteById(Integer noteId, String userId) {
+        return noteRepository.findByNoteIdAndUserId(noteId, userId).orElseThrow();
     }
 
     @Transactional(readOnly = true)
-    public List<Note> getNotes(Integer userId) {
-        if (userId != null) {
-            return noteRepository.findAllByUserId(userId);
-        }
-        return noteRepository.findAll();
+    public List<Note> getNotes(String userId) {
+        return noteRepository.findAllByUserId(userId);
     }
 }

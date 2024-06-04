@@ -35,5 +35,8 @@ out/
 ### VS Code ###
 .vscode/
 
+### Eclipse ###
+.metadata/
+
 ### H2 database ###
 /db/

@@ -24,37 +24,54 @@
 ### Create a note
 
 ```shell
-curl -X POST -H "Content-Type: application/json" -d '{"text": "My first note"}' "http://localhost:8080/api/notes?userId=1"
+curl -X POST -H "X-User-Id: 1" -H "Content-Type: application/json" -d '{"text": "My first note"}' "http://localhost:8080/api/notes"
 ```
 
-### Get all notes
+### Get all notes (for a user)
 
 ```shell
-curl "http://localhost:8080/api/notes"
+curl -H "X-User-Id: 1" "http://localhost:8080/api/notes"
 ```
 
-### Get all notes for a user
+### Get all notes (for a different user)
 
 ```shell
-curl "http://localhost:8080/api/notes?userId=1"
+curl -H "X-User-Id: 2" "http://localhost:8080/api/notes"
 ```
 
 
-### Get a note
+### Get a note (for the user that owns the note)
 
 ```shell
-curl "http://localhost:8080/api/notes/1"
+curl -H "X-User-Id: 1" "http://localhost:8080/api/notes/1"
 ```
 
-### Update a note
+### Get a note (for a user that does not own the note)
 
 ```shell
-curl -X PUT -H "Content-Type: application/json" -d '{"text": "My updated note"}' "http://localhost:8080/api/notes/1"
+curl -H "X-User-Id: 2" "http://localhost:8080/api/notes/1"
 ```
 
-### Delete a note
+### Update a note (for the user that owns the note)
 
 ```shell
-curl -X DELETE "http://localhost:8080/api/notes/1"
+curl -X PUT -H "X-User-Id: 1" -H "Content-Type: application/json" -d '{"text": "My updated note"}' "http://localhost:8080/api/notes/1"
 ```
 
+### Update a note (for a user that does not own the note)
+
+```shell
+curl -X PUT -H "X-User-Id: 1" -H "Content-Type: application/json" -d '{"text": "My updated note"}' "http://localhost:8080/api/notes/1"
+```
+
+### Delete a note (for a user that does not own the note)
+
+```shell
+curl -X DELETE -H "X-User-Id: 1" "http://localhost:8080/api/notes/1"
+```
+
+### Delete a note (for the user that owns the note)
+
+```shell
+curl -X DELETE -H "X-User-Id: 1" "http://localhost:8080/api/notes/1"
+```

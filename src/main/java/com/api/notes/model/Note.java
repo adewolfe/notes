@@ -16,10 +16,10 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "note_id", nullable = false)
-    private Integer id;
+    private Integer noteId;
 
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    @Column(name = "user_id", nullable = false, length = 128)
+    private String userId;
 
     @Column(name = "text", nullable = false, length = 1000)
     private String text;
