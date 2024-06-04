@@ -61,13 +61,13 @@ curl -X PUT -H "X-User-Id: 1" -H "Content-Type: application/json" -d '{"text": "
 ### Update a note (for a user that does not own the note)
 
 ```shell
-curl -X PUT -H "X-User-Id: 1" -H "Content-Type: application/json" -d '{"text": "My updated note"}' "http://localhost:8080/api/notes/1"
+curl -X PUT -H "X-User-Id: 2" -H "Content-Type: application/json" -d '{"text": "My updated note"}' "http://localhost:8080/api/notes/1"
 ```
 
 ### Delete a note (for a user that does not own the note)
 
 ```shell
-curl -X DELETE -H "X-User-Id: 1" "http://localhost:8080/api/notes/1"
+curl -X DELETE -H "X-User-Id: 2" "http://localhost:8080/api/notes/1"
 ```
 
 ### Delete a note (for the user that owns the note)
